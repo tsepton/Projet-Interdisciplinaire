@@ -9,7 +9,7 @@
 	<h1>Projet Interdisciplinaire: v{version}</h1>
 
 	<div class='mapbox'>
-		<Map lat={50.4667} lon={4.8667} zoom={14.5}>
+		<Map lat={50.842912} lon={4.377492} zoom={10.9}>
 			<MapMarker lat={50.465856} lon={4.857599} label="UNamur"/>
 		</Map>
 	</div>
