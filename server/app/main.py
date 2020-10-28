@@ -2,7 +2,7 @@ import os
 import ptvsd
 
 from fastapi import FastAPI
-from routers import gtfs
+from routers import gtfs, shapefiles
 
 """
 Enable remote debugging
@@ -13,6 +13,8 @@ if os.environ['ENVIRONMENT'] != 'PROD':
 app = FastAPI()
 
 app.include_router(gtfs.router)
+app.include_router(shapefiles.router)
+
 
 @app.get("/")
 def read_root():

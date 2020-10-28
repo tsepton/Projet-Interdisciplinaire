@@ -7,7 +7,7 @@ data_path = "data/shapefiles/"
 
 @router.get("/shapefiles/{file}/")
 async def read_shapefiles(file: str):
-    file += '.geojson'
+    file = file.upper() + '.geojson'
     if os.path.isfile(data_path + file):
         with open(data_path + file, newline='') as shapefile:
             return json.load(shapefile)
