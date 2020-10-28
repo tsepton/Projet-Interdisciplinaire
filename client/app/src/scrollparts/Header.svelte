@@ -9,11 +9,11 @@
     display: block;
   }
   .Header-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 75%;
     background: linear-gradient(19deg, var(--secondary), var(--ternary));
     -webkit-transform-origin: 0px 0px;
     transform-origin: 0px 0px;
@@ -93,10 +93,12 @@
       <p>Visualisation des trajets de la STIB</p>
       <button
         class="Button"
-        on:click={() => window.scrollTo({
+        on:click={() => {
+          window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth',
-          })}>Commencer</button>
+          });
+        }}>Commencer</button>
     </div>
   </div>
 </div>

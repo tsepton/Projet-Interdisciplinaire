@@ -1,35 +1,8 @@
 <script>
   export let version;
-  import Header from "./components/Header.svelte";
-  import Map from "./components/Map.svelte";
-  import MapMarker from "./components/MapMarker.svelte";
+  import Header from "./scrollparts/Header.svelte";
+  import Main from "./scrollparts/Main.svelte";
 </script>
 
-<style>
-  .mapbox {
-    height: 75vh;
-    margin: 1rem;
-  }
-
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
-</style>
-
 <Header {version} />
-<main>
-  <div class="mapbox">
-    <Map lat={50.842912} lon={4.377492} zoom={10.9}>
-      <MapMarker lat={50.465856} lon={4.857599} label="UNamur" />
-    </Map>
-  </div>
-</main>
+<Main />

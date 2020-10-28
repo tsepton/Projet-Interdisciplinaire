@@ -8,6 +8,7 @@
   export let lat;
   export let lon;
   export let zoom;
+  export let className;
 
   let container;
   let map;
