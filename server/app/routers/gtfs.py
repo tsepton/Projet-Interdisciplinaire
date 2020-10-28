@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import csv
 import os.path
 import re
@@ -13,8 +13,7 @@ async def read_gtfs(file: str):
     if os.path.isfile(data_path + file):
         return file_to_json(file)
     else:
-        # TODO
-        return []
+        raise HTTPException(status_code=404, detail="Gtfs file not found")
 
 
 def file_to_json(file: str):
