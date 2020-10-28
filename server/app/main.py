@@ -1,21 +1,19 @@
 import os
-from fastapi import FastAPI
 import ptvsd
+
+from fastapi import FastAPI
+from routers import gtfs
 
 """
 Enable remote debugging
 """
 if os.environ['ENVIRONMENT'] != 'PROD':
-  ptvsd.enable_attach()
+    ptvsd.enable_attach()
 
 app = FastAPI()
 
+app.include_router(gtfs.router)
 
 @app.get("/")
 def read_root():
-  return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-  return {"item_id": item_id, "q": q}
+    return {"Titi": "cocu"}
