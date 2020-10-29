@@ -1,6 +1,7 @@
 <script>
   import Map from "../components/Map.svelte";
   import MapMarker from "../components/MapMarker.svelte";
+  import Card from "../components/Card.svelte";
 </script>
 
 <style>
@@ -10,17 +11,17 @@
     justify-content: center;
     align-items: center;
     max-width: 100%;
-    height: 100vh;
+    height: fit-content;
+    min-height: 100vh;
     margin-left: 40px;
     margin-right: 40px;
     column-gap: 2rem;
   }
-
   /* Small screens */
   @media (max-width: 900px) {
     .grid-container {
       flex-basis: 100%;
-      height: 85%;
+      height: 85vh;
       width: 95%;
       margin: 25px;
     }
@@ -29,17 +30,12 @@
   @media (min-width: 900px) {
     .grid-container {
       flex-basis: 45%;
-      height: 85%;
+      height: 85vh;
       width: 45%;
     }
   }
-
   .shadow {
     box-shadow: 0 0 5px 2px var(--secondary);
-  }
-
-  .test {
-    background-color: var(--primary);
   }
 </style>
 
@@ -49,7 +45,9 @@
       <MapMarker lat={50.465856} lon={4.857599} label="UNamur" />
     </Map>
   </div>
-  <div class="grid-container test">
-    <span>TODO</span>
+  <div class="grid-container shadow">
+    <Card middle header="Information">
+      <p>TODO</p>
+    </Card>
   </div>
 </main>
