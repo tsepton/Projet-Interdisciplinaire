@@ -22,12 +22,14 @@
     max-width: 100%;
     height: fit-content;
     min-height: 100vh;
-    margin-left: 40px;
-    margin-right: 40px;
     column-gap: 2rem;
   }
   /* Small screens */
   @media (max-width: 900px) {
+    main {
+      margin-left: 5px;
+      margin-right: 5;
+    }
     .grid-container {
       flex-basis: 100%;
       height: 85vh;
@@ -37,6 +39,10 @@
   }
   /* Large screens */
   @media (min-width: 900px) {
+    main {
+      margin-left: 5px;
+      margin-right: 5;
+    }
     .grid-container {
       flex-basis: 45%;
       height: 85vh;
