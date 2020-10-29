@@ -1,7 +1,16 @@
 <script>
   import Map from "../components/Map.svelte";
-  import MapMarker from "../components/MapMarker.svelte";
+  import GeojsonPoints from "../components/GeojsonPoints.svelte";
+  import GeojsonLines from "../components/GeojsonLines.svelte";
   import Card from "../components/Card.svelte";
+  import { shapefiles } from "../lib/api";
+  import App from "../App.svelte";
+
+  let actuStops = shapefiles("actu_stops");
+  let actuLines = shapefiles("actu_lines");
+  let geojsons;
+
+  $: geojsons = Promise.allSettled([actuStops, actuLines]);
 </script>
 
 <style>
@@ -42,11 +51,18 @@
 <main>
   <div class="grid-container shadow">
     <Map lat={50.842912} lon={4.377492} zoom={10.9}>
-      <MapMarker lat={50.465856} lon={4.857599} label="UNamur" />
+      {#await geojsons}
+        <div class="grid-container"><b>loading...</b></div>
+      {:then data}
+        <GeojsonPoints points={data[0].value} />
+        <GeojsonLines lines={data[1].value} />
+      {:catch error}
+        {console.error(error)}
+      {/await}
     </Map>
   </div>
   <div class="grid-container shadow">
-    <Card middle header="Information">
+    <Card header="Information">
       <p>TODO</p>
     </Card>
   </div>
