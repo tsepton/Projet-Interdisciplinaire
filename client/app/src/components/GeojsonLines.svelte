@@ -21,8 +21,8 @@
         "line-cap": "round",
       },
       paint: {
-        "line-color": "#888",
-        "line-width": 1,
+        "line-color": line.properties.COLOR_HEX,
+        "line-width": 1.5,
       },
     });
   });
