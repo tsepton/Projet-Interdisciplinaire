@@ -125,3 +125,6 @@ dmypy.json
 
 # Environment variables
 .env
+
+# data
+data/
