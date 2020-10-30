@@ -2,6 +2,7 @@
   import Map from "../components/Map.svelte";
   import GeojsonPoints from "../components/GeojsonPoints.svelte";
   import GeojsonLines from "../components/GeojsonLines.svelte";
+  import Filter from "../components/Filter.svelte";
   import Card from "../components/Card.svelte";
   import { shapefiles } from "../lib/api";
   import App from "../App.svelte";
@@ -69,7 +70,13 @@
   </div>
   <div class="grid-container shadow">
     <Card header="Information">
-      <p>TODO</p>
+      {#await geojsons}
+        <div class="grid-container"><b>loading...</b></div>
+      {:then data}
+        <Filter points={data[0].value} lines={data[1].value} />
+      {:catch error}
+        {console.error(error)}
+      {/await}
     </Card>
   </div>
 </main>

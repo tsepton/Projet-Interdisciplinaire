@@ -30,5 +30,5 @@
   </div>
   <hr />
   {/if}
-  <slot />
+  <slot/>
 </div>
