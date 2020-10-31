@@ -1,12 +1,11 @@
 <script>
-  import { onMount, setContext } from "svelte";
-  import { mapbox, key } from "../lib/mapbox.js";
-  setContext(key, {
-    getMap: () => map,
-  });
+  import { getContext, onMount, setContext } from "svelte";
+  import { key } from "../lib/mapbox.js";
 
-  export let lat;
-  export let lon;
+  const { getMap, initMap } = getContext(key);
+
+  export let latitude;
+  export let longitude;
   export let zoom;
 
   let container;
@@ -16,13 +15,9 @@
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "https://unpkg.com/mapbox-gl/dist/mapbox-gl.css";
-    link.onload = () => {
-      map = new mapbox.Map({
-        container,
-        style: "mapbox://styles/mapbox/streets-v9",
-        center: [lon, lat],
-        zoom,
-      });
+    link.onload = () =>{
+      initMap(latitude, longitude, zoom, container);
+      map = getMap()
     };
     document.head.appendChild(link);
     return () => {

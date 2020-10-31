@@ -1,5 +1,6 @@
 <script>
   import Map from "../components/Map.svelte";
+  import MapContext from "../components/MapContext.svelte";
   import GeojsonPoints from "../components/GeojsonPoints.svelte";
   import GeojsonLines from "../components/GeojsonLines.svelte";
   import Filter from "../components/Filter.svelte";
@@ -55,30 +56,32 @@
 </style>
 
 <main>
-  <div class="grid-container shadow">
-    <Map lat={50.842912} lon={4.377492} zoom={10.9}>
-      {#await geojsons}
-        <div class="grid-container"><b>loading...</b></div>
-      {:then data}
-        <GeojsonPoints points={data[0].value} />
-        <GeojsonLines lines={data[1].value} />
-      {:catch error}
-        {console.error(error)}
-      {/await}
-    </Map>
-  </div>
-  <div class="grid-container shadow">
-    <Card>
-      <h1 slot="header">Title</h1>
-      <div slot="body">
+  <MapContext>
+    <div class="grid-container shadow">
+      <Map latitude={50.842912} longitude={4.377492} zoom={10.3}>
         {#await geojsons}
-          <b>loading...</b>
+          <div class="grid-container"><b>loading...</b></div>
         {:then data}
-          <Filter points={data[0].value} lines={data[1].value} />
+          <GeojsonPoints points={data[0].value} />
+          <GeojsonLines lines={data[1].value} />
         {:catch error}
           {console.error(error)}
         {/await}
-      </div>
-    </Card>
-  </div>
+      </Map>
+    </div>
+    <div class="grid-container shadow">
+      <Card>
+        <h1 slot="header">Filtrer les trajets</h1>
+        <div slot="body">
+          {#await geojsons}
+            <b>loading...</b>
+          {:then data}
+            <Filter points={data[0].value} lines={data[1].value} />
+          {:catch error}
+            {console.error(error)}
+          {/await}
+        </div>
+      </Card>
+    </div>
+  </MapContext>
 </main>
