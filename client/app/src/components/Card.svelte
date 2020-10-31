@@ -1,7 +1,3 @@
-<script>
-  export let header = "";
-</script>
-
 <style>
   .card {
     border-radius: 1px;
@@ -24,11 +20,6 @@
 </style>
 
 <div class="card">
-  {#if header.length}
-  <div class="header">
-    <h1>{header}</h1>
-  </div>
-  <hr />
-  {/if}
-  <slot/>
+  <slot name="header" />
+  <slot name="body" />
 </div>

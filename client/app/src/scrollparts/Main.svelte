@@ -5,7 +5,6 @@
   import Filter from "../components/Filter.svelte";
   import Card from "../components/Card.svelte";
   import { shapefiles } from "../lib/api";
-  import App from "../App.svelte";
 
   let actuStops = shapefiles("actu_stops");
   let actuLines = shapefiles("actu_lines");
@@ -69,14 +68,17 @@
     </Map>
   </div>
   <div class="grid-container shadow">
-    <Card header="Information">
-      {#await geojsons}
-        <div class="grid-container"><b>loading...</b></div>
-      {:then data}
-        <Filter points={data[0].value} lines={data[1].value} />
-      {:catch error}
-        {console.error(error)}
-      {/await}
+    <Card>
+      <h1 slot="header">Title</h1>
+      <div slot="body">
+        {#await geojsons}
+          <b>loading...</b>
+        {:then data}
+          <Filter points={data[0].value} lines={data[1].value} />
+        {:catch error}
+          {console.error(error)}
+        {/await}
+      </div>
     </Card>
   </div>
 </main>
