@@ -1,11 +1,11 @@
 <script>
   import Map from "../components/Map.svelte";
+  import MapContext from "../components/MapContext.svelte";
   import GeojsonPoints from "../components/GeojsonPoints.svelte";
   import GeojsonLines from "../components/GeojsonLines.svelte";
   import Filter from "../components/Filter.svelte";
   import Card from "../components/Card.svelte";
   import { shapefiles } from "../lib/api";
-  import App from "../App.svelte";
 
   let actuStops = shapefiles("actu_stops");
   let actuLines = shapefiles("actu_lines");
@@ -56,27 +56,32 @@
 </style>
 
 <main>
-  <div class="grid-container shadow">
-    <Map lat={50.842912} lon={4.377492} zoom={10.9}>
-      {#await geojsons}
-        <div class="grid-container"><b>loading...</b></div>
-      {:then data}
-        <GeojsonPoints points={data[0].value} />
-        <GeojsonLines lines={data[1].value} />
-      {:catch error}
-        {console.error(error)}
-      {/await}
-    </Map>
-  </div>
-  <div class="grid-container shadow">
-    <Card header="Information">
-      {#await geojsons}
-        <div class="grid-container"><b>loading...</b></div>
-      {:then data}
-        <Filter points={data[0].value} lines={data[1].value} />
-      {:catch error}
-        {console.error(error)}
-      {/await}
-    </Card>
-  </div>
+  <MapContext>
+    <div class="grid-container shadow">
+      <Map latitude={50.842912} longitude={4.377492} zoom={10.3}>
+        {#await geojsons}
+          <div class="grid-container"><b>loading...</b></div>
+        {:then data}
+          <GeojsonPoints points={data[0].value} />
+          <GeojsonLines lines={data[1].value} />
+        {:catch error}
+          {console.error(error)}
+        {/await}
+      </Map>
+    </div>
+    <div class="grid-container shadow">
+      <Card>
+        <h1 slot="header">Filtrer les trajets</h1>
+        <div slot="body">
+          {#await geojsons}
+            <b>loading...</b>
+          {:then data}
+            <Filter points={data[0].value} lines={data[1].value} />
+          {:catch error}
+            {console.error(error)}
+          {/await}
+        </div>
+      </Card>
+    </div>
+  </MapContext>
 </main>
