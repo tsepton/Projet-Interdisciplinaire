@@ -5,20 +5,33 @@
 <style>
   .filter-ctrl {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10000;
+    z-index: 100 !important;
   }
-
   .filter-ctrl input[type="text"] {
     width: 100%;
     background-color: #fff;
     margin: 0;
     color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 2px var(--secondary);
     border-radius: 3px;
-    width: 180px;
+  }
+  /* Small screens */
+  @media (max-width: 900px) {
+    .filter-ctrl {
+      width: auto;
+      padding: 10px;
+      top: 2px;
+      right: 2px;
+      left: 2px;
+    }
+  }
+  /* Large screens */
+  @media (min-width: 900px) {
+    .filter-ctrl {
+      width: 25%;
+      top: 10px;
+      right: 10px;
+    }
   }
 </style>
 
@@ -27,6 +40,6 @@
     id="filter-input"
     type="text"
     name="filter"
-    placeholder="Filter by name"
+    placeholder="Chercher une station..."
     bind:value={filter} />
 </div>
