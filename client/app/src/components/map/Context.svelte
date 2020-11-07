@@ -24,4 +24,15 @@
   });
 </script>
 
-<slot />
+<style>
+  .container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 5px 2px var(--secondary);
+  }
+</style>
+
+<div class="container">
+  <slot />
+</div>
