@@ -27,6 +27,15 @@
     padding: 4rem 4rem;
     margin: 0 auto;
   }
+  .Header-visuals {
+    position: relative;
+    margin-top: 5rem;
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  img {
+    width: 20rem;
+  }
   @media (min-width: 58rem) {
     .Header-content {
       text-align: left;
@@ -36,6 +45,15 @@
       display: flex;
       -webkit-box-pack: justify;
       justify-content: space-between;
+    }
+    .Header-visuals {
+      margin: 0;
+      -webkit-transform: translateY(-5rem) rotate(-10deg);
+      transform: translateY(-5rem) rotate(-10deg);
+    }
+    img {
+      margin-top: 100px;
+      width: 23rem;
     }
   }
   h1,
@@ -101,5 +119,6 @@
           });
         }}>Commencer</button>
     </div>
+    <div class="Header-visuals"><img src="stib.png" alt="STIB logo" /></div>
   </div>
 </div>
