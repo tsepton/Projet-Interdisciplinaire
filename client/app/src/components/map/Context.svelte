@@ -1,6 +1,7 @@
 <script>
   import { setContext } from "svelte";
   import { mapbox, key } from "../../lib/mapbox.js";
+  import geojsons from "../../data/data.js";
 
   let map;
 
@@ -16,6 +17,8 @@
   setContext(key, {
     initMap: initMap,
     getMap: () => map,
+    getLines: () => geojsons.lines,
+    getStops: () => geojsons.stops,
   });
 </script>
 

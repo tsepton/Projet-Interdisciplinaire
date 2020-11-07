@@ -2,10 +2,9 @@
   import { getContext } from "svelte";
   import { key } from "../../lib/mapbox.js";
 
-  const { getMap } = getContext(key);
+  const { getMap, getLines } = getContext(key);
   const map = getMap();
-
-  export let lines;
+  const lines = getLines();
 
   map.on("load", () =>
     lines.features.forEach((line, index) => {

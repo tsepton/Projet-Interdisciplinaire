@@ -1,8 +1,11 @@
 <script>
   import Filter from "./Filter.svelte";
+  import { getContext } from "svelte";
+  import { key } from "../../../lib/mapbox.js";
 
-  export let lines;
-  export let points;
+  const { getLines, getStops } = getContext(key);
+  const stops = getStops();
+  const lines = getLines();
 </script>
 
 <style>
@@ -26,7 +29,7 @@
 <div class="content">
   <h2>Filtrer les informations</h2>
   <hr />
-  <Filter features={points.features} key="alpha_fr">
+  <Filter features={stops.features} key="alpha_fr">
     <h3 slot="title">Arrêts</h3>
   </Filter>
   <Filter features={lines.features} key="LIGNE">

@@ -2,24 +2,23 @@
   import { getContext } from "svelte";
   import { key } from "../../lib/mapbox.js";
 
-  const { getMap } = getContext(key);
+  const { getMap, getStops } = getContext(key);
   const map = getMap();
-
-  export let points;
+  const stops = getStops();
 
   map.on("load", () =>
     map.loadImage("/marker.32px.png", (error, image) => {
       if (error) throw error;
       // TODO Visu : Marker
       map.addImage("bus-stop-marker", image);
-      map.addSource(`points-id`, {
+      map.addSource(`stops-id`, {
         type: "geojson",
-        data: points,
+        data: stops,
       });
       map.addLayer({
-        id: `points-layer`,
+        id: `stops-layer`,
         type: "symbol",
-        source: `points-id`,
+        source: `stops-id`,
         layout: {
           "icon-image": "bus-stop-marker",
           // get the title name from the source's "title" property

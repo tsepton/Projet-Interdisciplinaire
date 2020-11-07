@@ -3,8 +3,7 @@
   import Context from "../components/map/Context.svelte";
   import Stops from "../components/map/Stops.svelte";
   import Lines from "../components/map/Lines.svelte";
-  import Filter from "../components/filters/Filters.svelte";
-  import geojsons from "../data/data.js";
+  import Filter from "../components/map/filters/Filters.svelte";
 </script>
 
 <style>
@@ -52,12 +51,12 @@
   <Context>
     <div class="grid-container shadow">
       <Map latitude={50.842912} longitude={4.377492} zoom={10.3}>
-        <Stops points={geojsons.stops} />
-        <Lines lines={geojsons.lines} />
+        <Stops />
+        <Lines />
       </Map>
     </div>
     <div class="grid-container shadow">
-      <Filter points={geojsons.stops} lines={geojsons.lines} />
+      <Filter />
     </div>
   </Context>
 </main>
