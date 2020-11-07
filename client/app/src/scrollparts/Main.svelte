@@ -3,7 +3,7 @@
   import Context from "../components/map/Context.svelte";
   import Stops from "../components/map/Stops.svelte";
   import Lines from "../components/map/Lines.svelte";
-  import Filter from "../components/map/filters/Filters.svelte";
+  import Filters from "../components/map/Filters.svelte";
 </script>
 
 <style>
@@ -12,34 +12,38 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    max-width: 100%;
     height: fit-content;
     min-height: 100vh;
-    column-gap: 2rem;
+    /* column-gap: 2rem; */
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  .grid-container {
+    position: relative;
   }
   /* Small screens */
+  /* I left the old flex css in case we need add something else than the map */
   @media (max-width: 900px) {
     main {
-      margin-left: 5px;
-      margin-right: 5;
+      max-width: 100%;
     }
     .grid-container {
       flex-basis: 100%;
       height: 85vh;
       width: 95%;
-      margin: 25px;
+      /* margin: 25px; */
     }
   }
   /* Large screens */
   @media (min-width: 900px) {
     main {
-      margin-left: 5px;
-      margin-right: 5;
+      max-width: 100%;
     }
     .grid-container {
-      flex-basis: 45%;
+      flex-basis: 100%;
       height: 85vh;
-      width: 45%;
+      width: 95%;
     }
   }
   .shadow {
@@ -51,12 +55,10 @@
   <Context>
     <div class="grid-container shadow">
       <Map latitude={50.842912} longitude={4.377492} zoom={10.3}>
-        <Stops />
         <Lines />
+        <Stops />
       </Map>
-    </div>
-    <div class="grid-container shadow">
-      <Filter />
+      <Filters />
     </div>
   </Context>
 </main>

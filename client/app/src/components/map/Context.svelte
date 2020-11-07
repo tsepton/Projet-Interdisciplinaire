@@ -4,11 +4,12 @@
   import geojsons from "../../data/data.js";
 
   let map;
+  let layers = [];
 
   const initMap = (latitude, longitude, zoom, container) => {
     map = new mapbox.Map({
       container,
-      style: "mapbox://styles/mapbox/light-v9",
+      style: "mapbox://styles/mapbox/light-v10",
       center: [longitude, latitude],
       zoom,
     });
@@ -19,6 +20,7 @@
     getMap: () => map,
     getLines: () => geojsons.lines,
     getStops: () => geojsons.stops,
+    getLayers: () => layers,
   });
 </script>
 
