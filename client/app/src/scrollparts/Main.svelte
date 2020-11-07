@@ -11,8 +11,6 @@
   function filterLines(e) {
     lineFilter = e.detail.ligne
   }
-
-  $: lineFilter, stopFilter, console.log(lineFilter, stopFilter)
 </script>
 
 <Context>
