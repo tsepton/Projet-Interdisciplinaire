@@ -8,46 +8,48 @@
 
   let layerIDs = [];
 
-  //TODO in a sveltier way gros
-  var filterInput = document.getElementById("filter-input");
-
   map.on("load", () => {
-    lines.features.forEach((line) => {
-      const id = `line-${line.properties["LIGNE"]}-${line.properties["VARIANTE"]}`;
-      map.addSource(`line-${id}`, {
-        type: "geojson",
-        data: line,
-      });
+    map.addSource("source-lines", {
+      type: "geojson",
+      data: lines,
+    });
 
-      if (!map.getLayer(id)) {
+    lines.features.forEach((line) => {
+      const ligneID = line.properties["LIGNE"];
+      const ligneVariante = line.properties["VARIANTE"];
+      const layerID = `line-${ligneID}-${ligneVariante}`;
+
+      if (!layerIDs.includes(layerID)) {
         map.addLayer({
-          id: id,
+          id: layerID,
           type: "line",
-          source: `line-${id}`,
+          source: "source-lines",
           layout: {
             "line-join": "round",
             "line-cap": "round",
+            visibility: "none", // We do not show the line until the user select a stop related to it
           },
           paint: {
             "line-color": "#5B6886", //line.properties["COLOR_HEX"],
             "line-width": 1.7,
           },
+          filter: ["==", "LIGNE", ligneID],
         });
-        layerIDs = [...layerIDs, id];
+        layerIDs = [...layerIDs, layerID];
       }
     });
 
-    filterInput.addEventListener("keyup", function (e) {
-      // If the input value matches a layerID set
-      // it's visibility to 'visible' or else hide it.
-      var value = e.target.value.trim().toLowerCase();
-      layerIDs.forEach((layerID) => {
-        map.setLayoutProperty(
-          layerID,
-          "visibility",
-          layerID.indexOf(value) > -1 ? "visible" : "none"
-        );
-      });
-    });
+    // filterInput.addEventListener("keyup", function (e) {
+    //   // If the input value matches a layerID set
+    //   // it's visibility to 'visible' or else hide it.
+    //   var value = e.target.value.trim().toLowerCase();
+    //   layerIDs.forEach((layerID) => {
+    //     map.setLayoutProperty(
+    //       layerID,
+    //       "visibility",
+    //       layerID.indexOf(value) > -1 ? "visible" : "none"
+    //     );
+    //   });
+    // });
   });
 </script>

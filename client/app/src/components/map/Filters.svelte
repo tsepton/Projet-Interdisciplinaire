@@ -1,3 +1,7 @@
+<script>
+  export let filter = "";
+</script>
+
 <style>
   .filter-ctrl {
     position: absolute;
@@ -23,5 +27,6 @@
     id="filter-input"
     type="text"
     name="filter"
-    placeholder="Filter by name" />
+    placeholder="Filter by name"
+    bind:value={filter} />
 </div>
