@@ -47,13 +47,14 @@
   h1 {
     margin: 0;
     font-size: 2.5rem;
-    font-weight: 200;
+    font-weight: 300;
   }
   h2 {
-    font-weight: 100;
+    font-weight: 200;
+    font-size: 2rem;
   }
   p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
     font-weight: 100;
   }

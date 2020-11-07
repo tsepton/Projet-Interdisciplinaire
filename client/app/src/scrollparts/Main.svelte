@@ -1,17 +1,10 @@
 <script>
-  import Map from "../components/Map.svelte";
-  import MapContext from "../components/MapContext.svelte";
-  import GeojsonPoints from "../components/GeojsonPoints.svelte";
-  import GeojsonLines from "../components/GeojsonLines.svelte";
-  import Filter from "../components/Filter.svelte";
-  import Card from "../components/Card.svelte";
-  import { shapefiles } from "../lib/api";
-
-  let actuStops = shapefiles("actu_stops");
-  let actuLines = shapefiles("actu_lines");
-  let geojsons;
-
-  $: geojsons = Promise.allSettled([actuStops, actuLines]);
+  import Map from "../components/map/Map.svelte";
+  import Context from "../components/map/Context.svelte";
+  import Stops from "../components/map/Stops.svelte";
+  import Lines from "../components/map/Lines.svelte";
+  import Filter from "../components/filters/Filters.svelte";
+  import geojsons from "../data/data.js";
 </script>
 
 <style>
@@ -56,32 +49,15 @@
 </style>
 
 <main>
-  <MapContext>
+  <Context>
     <div class="grid-container shadow">
       <Map latitude={50.842912} longitude={4.377492} zoom={10.3}>
-        {#await geojsons}
-          <div class="grid-container"><b>loading...</b></div>
-        {:then data}
-          <GeojsonPoints points={data[0].value} />
-          <GeojsonLines lines={data[1].value} />
-        {:catch error}
-          {console.error(error)}
-        {/await}
+        <Stops points={geojsons.stops} />
+        <Lines lines={geojsons.lines} />
       </Map>
     </div>
     <div class="grid-container shadow">
-      <Card>
-        <h1 slot="header">Filtrer les trajets</h1>
-        <div slot="body">
-          {#await geojsons}
-            <b>loading...</b>
-          {:then data}
-            <Filter points={data[0].value} lines={data[1].value} />
-          {:catch error}
-            {console.error(error)}
-          {/await}
-        </div>
-      </Card>
+      <Filter points={geojsons.stops} lines={geojsons.lines} />
     </div>
-  </MapContext>
+  </Context>
 </main>
