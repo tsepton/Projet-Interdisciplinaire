@@ -1,12 +1,3 @@
-:root {
-    --primary: #678FF5;
-    --secondary: #475373;
-    --ternary: #28407D;
-	--quadrary: #192B59;
-	--background: #F5F5F5;
-	--foreground: #F5F5F5;
-  }
-
 html, body {
 	position: relative;
 	width: 100%;
