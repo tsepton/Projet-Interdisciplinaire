@@ -2,11 +2,28 @@
   import { getContext } from "svelte";
   import { key } from "../../lib/mapbox.js";
 
+  export let filter;
+
   const { getMap, getLines, getLayers } = getContext(key);
   const map = getMap();
   const lines = getLines();
 
   let layerIDs = [];
+
+  function filterLines(filter) {
+    // If the input value matches a layerID set
+    // it's visibility to 'visible' or else hide it.
+    var value = filter.toString();
+    layerIDs.forEach((layerID) => {
+      map.setLayoutProperty(
+        layerID,
+        "visibility",
+        layerID.indexOf(value) > -1 ? "visible" : "none"
+      );
+    });
+  }
+
+  $: filter, filterLines(filter);
 
   map.on("load", () => {
     map.addSource("source-lines", {
@@ -16,8 +33,9 @@
 
     lines.features.forEach((line) => {
       const ligneID = line.properties["LIGNE"];
+      const ligneNumber = line.properties["LIGNE"];
       const ligneVariante = line.properties["VARIANTE"];
-      const layerID = `line-${ligneID}-${ligneVariante}`;
+      const layerID = `line-${ligneID}:${ligneVariante}-${ligneNumber}`;
 
       if (!layerIDs.includes(layerID)) {
         map.addLayer({
@@ -38,18 +56,5 @@
         layerIDs = [...layerIDs, layerID];
       }
     });
-
-    // filterInput.addEventListener("keyup", function (e) {
-    //   // If the input value matches a layerID set
-    //   // it's visibility to 'visible' or else hide it.
-    //   var value = e.target.value.trim().toLowerCase();
-    //   layerIDs.forEach((layerID) => {
-    //     map.setLayoutProperty(
-    //       layerID,
-    //       "visibility",
-    //       layerID.indexOf(value) > -1 ? "visible" : "none"
-    //     );
-    //   });
-    // });
   });
 </script>
