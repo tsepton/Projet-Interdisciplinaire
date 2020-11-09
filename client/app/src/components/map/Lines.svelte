@@ -4,7 +4,7 @@
 
   export let filter;
 
-  const { getMap, getLines, getLayers } = getContext(key);
+  const { getMap, getLines } = getContext(key);
   const map = getMap();
   const lines = getLines();
 
