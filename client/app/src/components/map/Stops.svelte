@@ -2,10 +2,11 @@
   import { onMount, getContext, createEventDispatcher } from "svelte";
   import { key } from "../../lib/mapbox.js";
 
-  // TODO : filter based on name
-  export let filterName;
-  export let stopId;
-  export let stopModes;
+  export let name;
+  export let id;
+  export let modes;
+
+  let filters = [];
 
   const { getMap, getStops } = getContext(key);
   const map = getMap();
@@ -13,34 +14,42 @@
   const dispatch = createEventDispatcher();
 
   // FIXME: Best hack ever
-  setTimeout(handleFilters, 2000);
+  setTimeout(handleFilters, 3500);
 
-  $: stopId, stopModes, handleFilters();
+  $: id, modes, name, handleFilters();
 
   function handleFilters() {
     if (!map.isStyleLoaded()) return;
     map.setFilter("layer-stops", null);
     map.setLayoutProperty("layer-stops", "visibility", "visible");
-    filterMode();
-    filterId();
+    filters = ["all"];
+    getFilterMode() && filters.push(getFilterMode());
+    getFilterName() && filters.push(getFilterName());
+    getFilterId() && filters.push(getFilterId());
+    map.setFilter("layer-stops", filters);
   }
 
-  function filterId() {
-    if (stopId && stopId.length > 0) {
-      map.setFilter("layer-stops", ["==", "stop_id", stopId]);
+  function getFilterId() {
+    if (id && id.length > 0) {
+      return ["==", "stop_id", id];
     }
   }
 
-  function filterMode() {
-    if (stopModes && stopModes.length) {
-      // Gros code mon gars
-      if (stopModes.length > 1) {
-        map.setFilter("layer-stops", ["!=", "mode", "T"]);
+  function getFilterMode() {
+    if (modes && modes.length) {
+      if (modes.length > 1) {
+        return ["!=", "mode", "T"];
       } else {
-        map.setFilter("layer-stops", ["==", "mode", stopModes[0]]);
+        return ["==", "mode", modes[0]];
       }
     } else {
       map.setLayoutProperty("layer-stops", "visibility", "none");
+    }
+  }
+
+  function getFilterName() {
+    if (name && name.length > 0) {
+      return ["in", "alpha_fr", name];
     }
   }
 
@@ -53,11 +62,6 @@
         map.addSource("source-stops", {
           type: "geojson",
           data: stops,
-          // TODO
-          // cluster: true,
-          // clusterMaxZoom: 10,
-          // clusterRadius: 10,
-          // maxzoom: 15,
         });
 
         map.addLayer({
@@ -76,23 +80,21 @@
           },
         });
 
-        // Change it back to a pointer when it leaves.
+        // Remove focus of stop
         map.on("click", () => {
           map.getCanvas().style.cursor = "";
           // Remove the  lines filter and re add other stop markers
           dispatch("select", { ligne: "null" });
-          stopId = "";
+          id = "";
         });
 
-        // When a click event occurs on a feature in the places layer, open a popup at the
-        // location of the feature, with description HTML from its properties.
         map.on("click", "layer-stops", (e) => {
           map.getCanvas().style.cursor = "pointer";
           // Filter lines and remove other stop markers
           dispatch("select", {
             ligne: e.features[0].properties["numero_lig"],
           });
-          stopId = e.features[0].properties["stop_id"];
+          id = e.features[0].properties["stop_id"];
         });
       });
     });

@@ -23,9 +23,9 @@
   <Map latitude={50.842912} longitude={4.377492} zoom={11}>
     <Lines filter={lineFilterNumber} />
     <Stops
-      bind:filterName={stopFilterName}
-      on:select={filterLines}
-      {stopModes} />
+      name={stopFilterName}
+      modes={stopModes}
+      on:select={filterLines} />
   </Map>
   <Filters bind:modes={stopModes} bind:name={stopFilterName} />
 </Context>
