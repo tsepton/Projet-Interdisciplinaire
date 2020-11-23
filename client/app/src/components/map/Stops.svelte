@@ -4,26 +4,36 @@
 
   // TODO : filter based on name
   export let filterName;
-  export let filterID;
+  export let stopId;
+  export let stopModes;
 
   const { getMap, getStops } = getContext(key);
   const map = getMap();
   const stops = getStops();
   const dispatch = createEventDispatcher();
 
-  $: {
-    if (filterID) filterStops(filterID);
-    else removeFilters();
+  $: stopId, stopModes, filter(stopId);
+  $: stopModes, console.log(stopModes);
+
+  function filter() {
+    if (!map.isStyleLoaded()) return;
+    map.setFilter("layer-stops", null);
+    filterId();
+    filterMode();
   }
 
-  function filterStops(stopID) {
-    if (stopID && stopID.length > 0) {
-      map.setFilter("layer-stops", ["==", "stop_id", stopID]);
+  function filterId() {
+    if (stopId && stopId.length > 0) {
+      map.setFilter("layer-stops", ["==", "stop_id", stopId]);
     }
   }
 
-  function removeFilters() {
-    if (map.isStyleLoaded()) map.setFilter("layer-stops", null);
+  function filterMode() {
+    if (stopModes && stopModes.length > 0) {
+      stopModes.forEach((mode) => {
+        map.setFilter("layer-stops", ["==", "mode", mode]);
+      });
+    }
   }
 
   onMount(async () => {
@@ -46,6 +56,8 @@
           id: "layer-stops",
           type: "symbol",
           source: "source-stops",
+          minzoom: 10,
+          maxzoom: 24,
           layout: {
             "icon-image": "metro-marker",
             "text-field": ["get", "alpha_fr"],
@@ -62,7 +74,7 @@
           dispatch("select", {
             ligne: e.features[0].properties["numero_lig"],
           });
-          filterID = e.features[0].properties["stop_id"];
+          stopId = e.features[0].properties["stop_id"];
         });
 
         // Change it back to a pointer when it leaves.
@@ -70,7 +82,7 @@
           map.getCanvas().style.cursor = "";
           // Remove the  lines filter and re add other stop markers
           dispatch("select", { ligne: "null" });
-          filterID = "";
+          stopId = "";
         });
 
         // // When a click event occurs on a feature in the places layer, open a popup at the

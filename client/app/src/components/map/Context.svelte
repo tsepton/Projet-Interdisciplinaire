@@ -9,7 +9,7 @@
   const initMap = (latitude, longitude, zoom, container) => {
     map = new mapbox.Map({
       container,
-      style: "mapbox://styles/mapbox/light-v10",
+      style: "mapbox://styles/mapbox/light-v10?optimize=true",
       center: [longitude, latitude],
       zoom,
     });
