@@ -16,6 +16,7 @@
 
   $: lineIdSelection,
     stopIdSelection,
+    stopNameSelection,
     (isOpen = lineIdSelection && stopIdSelection);
 
   // Thanks to their very understandable API :
@@ -25,6 +26,7 @@
   function handleSelection(e) {
     lineIdSelection = e.detail.line;
     stopIdSelection = e.detail.stop;
+    stopNameSelection = e.detail.name
   }
 </script>
 
@@ -41,6 +43,10 @@
       isOpen={!isOpen}
       bind:modes={stopModes}
       bind:name={stopNameSelection} />
-    <Information {isOpen} lineId={lineIdSelection} stopId={stopIdSelection} />
+    <Information
+      {isOpen}
+      lineId={lineIdSelection}
+      stopId={stopIdSelection}
+      stopName={stopNameSelection} />
   </div>
 </Context>
