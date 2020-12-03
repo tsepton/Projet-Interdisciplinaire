@@ -1,6 +1,8 @@
 <script>
   import Switch from "./Switch.svelte";
-  
+  import Container from "./Container.svelte";
+
+  export let isOpen;
   export let name = "";
   export let modes = [];
 
@@ -10,59 +12,16 @@
   }
 </script>
 
-<style>
-  .container {
-    width: 100%;
-    margin: 0;
-    position: absolute;
-    z-index: 100 !important;
-
-    background-color: #fff;
-    color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 5px 2px var(--secondary);
-    border-radius: 3px;
-
-    padding: 5px;
-  }
-  .ctrl .card {
-    width: 100%;
-  }
-  .ctrl input[type="text"] {
-    width: 100%;
-    border-radius: 3px;
-  }
-  /* Small screens */
-  @media (max-width: 900px) {
-    .container {
-      width: auto;
-      padding: 10px;
-      top: 2px;
-      right: 2px;
-      left: 2px;
-    }
-  }
-  /* Large screens */
-  @media (min-width: 900px) {
-    .container {
-      width: 25%;
-      top: 10px;
-      right: 10px;
-    }
-  }
-</style>
-
-<div class="container">
-  <div class="ctrl">
-    <input
-      id="input"
-      type="text"
-      name="name"
-      placeholder="Chercher une station..."
-      bind:value={name} />
-  </div>
-
-  <div class="ctrl">
-    <div class="card">
+{#if isOpen}
+  <Container>
+    <h3 slot="title">Apply some filters...</h3>
+    <div slot="body">
+      <input
+        id="input"
+        type="text"
+        name="name"
+        placeholder="Chercher une station..."
+        bind:value={name} />
       <Switch
         checked={modes.includes('M') ? true : false}
         on:toggle={(e) => handleMode(e.detail.checked, 'M')}>
@@ -74,5 +33,5 @@
         Bus
       </Switch>
     </div>
-  </div>
-</div>
+  </Container>
+{/if}

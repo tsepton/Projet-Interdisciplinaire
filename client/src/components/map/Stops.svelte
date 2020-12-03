@@ -84,7 +84,7 @@
         map.on("click", () => {
           map.getCanvas().style.cursor = "";
           // Remove the  lines filter and re add other stop markers
-          dispatch("select", { ligne: "null" });
+          dispatch("select", { line: "null" });
           id = "";
         });
 
@@ -92,7 +92,8 @@
           map.getCanvas().style.cursor = "pointer";
           // Filter lines and remove other stop markers
           dispatch("select", {
-            ligne: e.features[0].properties["numero_lig"],
+            line: e.features[0].properties["numero_lig"],
+            stop: e.features[0].properties["stop_id"],
           });
           id = e.features[0].properties["stop_id"];
         });
