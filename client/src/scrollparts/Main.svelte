@@ -12,7 +12,6 @@
   let stopNameSelection = "";
   let stopIdSelection = "";
   let lineIdSelection = "";
-  let stopModeSelection = "";
   let isOpen = false;
 
   $: lineIdSelection,
@@ -27,23 +26,16 @@
     lineIdSelection = e.detail.line;
     stopIdSelection = e.detail.stop;
     stopNameSelection = e.detail.name;
-    stopModeSelection = e.detail.mode;
   }
 </script>
 
 <Context>
   <Map latitude={50.842912} longitude={4.377492} zoom={11}>
-    <Lines filter={lineIdSelection} mode={stopModeSelection} />
-    <Stops
-      name={stopNameSelection}
-      mode={mode}
-      on:select={handleSelection} />
+    <Lines filter={lineIdSelection} {mode} />
+    <Stops name={stopNameSelection} {mode} on:select={handleSelection} />
   </Map>
   <div>
-    <Filters
-      isOpen={!isOpen}
-      bind:mode={mode}
-      bind:name={stopNameSelection} />
+    <Filters isOpen={!isOpen} bind:mode bind:name={stopNameSelection} />
     <Information
       {isOpen}
       lineId={lineIdSelection}

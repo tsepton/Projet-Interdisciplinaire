@@ -104,7 +104,6 @@
             line: e.features[0].properties["numero_lig"],
             stop: e.features[0].properties["stop_id"],
             name: e.features[0].properties["alpha_fr"],
-            mode: e.features[0].properties["mode"],
           });
           id = e.features[0].properties["stop_id"];
         });
