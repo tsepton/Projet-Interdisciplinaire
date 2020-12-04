@@ -8,10 +8,8 @@
 
 <style>
   .container {
-    background: #fff;
-    margin: 7px;
+    width: 45%;
     text-align: center;
-    padding: 2px;
     border-radius: 16px;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -19,11 +17,11 @@
   }
 
   label {
+    margin: auto;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.5);
     text-align: center;
     border-radius: 16px;
-    padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -33,7 +31,7 @@
   }
 
   input[type="radio"]:checked + label {
-    background-color: var(--primary);
+    background-color: #ccc;
     font-weight: bold;
   }
 </style>
