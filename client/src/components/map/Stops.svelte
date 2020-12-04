@@ -94,6 +94,7 @@
             stop: undefined,
             name: undefined,
           });
+          name = undefined;
           id = undefined;
         });
 
