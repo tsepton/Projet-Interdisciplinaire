@@ -16,7 +16,6 @@
 
   $: lineIdSelection,
     stopIdSelection,
-    stopNameSelection,
     (isOpen = lineIdSelection && stopIdSelection);
 
   // Thanks to their very understandable API :
@@ -26,7 +25,7 @@
   function handleSelection(e) {
     lineIdSelection = e.detail.line;
     stopIdSelection = e.detail.stop;
-    stopNameSelection = e.detail.name
+    stopNameSelection = e.detail.name;
   }
 </script>
 

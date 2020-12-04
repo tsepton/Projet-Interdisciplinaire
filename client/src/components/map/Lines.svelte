@@ -13,13 +13,11 @@
   function filterLines(filter) {
     // If the input value matches a layerID set
     // it's visibility to 'visible' or else hide it.
-    var value = filter.toString();
+    const value = (filter ?? "").toString();
     layerIDs.forEach((layerID) => {
-      map.setLayoutProperty(
-        layerID,
-        "visibility",
-        layerID.indexOf(value) > -1 ? "visible" : "none"
-      );
+      let visibility = "none";
+      if (value !== "" && layerID.indexOf(value) > -1) visibility = "visible";
+      map.setLayoutProperty(layerID, "visibility", visibility);
     });
   }
 

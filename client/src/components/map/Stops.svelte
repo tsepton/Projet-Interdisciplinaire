@@ -1,6 +1,7 @@
 <script>
   import { onMount, getContext, createEventDispatcher } from "svelte";
   import { key } from "../../lib/mapbox.js";
+  import { lev } from "../../lib/levenstein.js";
 
   export let name;
   export let id;
@@ -12,6 +13,9 @@
   const map = getMap();
   const stops = getStops();
   const dispatch = createEventDispatcher();
+  const names = stops.features.map(
+    ({ type, geometry, properties }) => properties["alpha_fr"]
+  );
 
   // FIXME: Best hack ever
   setTimeout(handleFilters, 3500);
@@ -19,14 +23,15 @@
   $: id, modes, name, handleFilters();
 
   function handleFilters() {
-    if (!map.isStyleLoaded()) return;
-    map.setFilter("layer-stops", null);
-    map.setLayoutProperty("layer-stops", "visibility", "visible");
-    filters = ["all"];
-    getFilterMode() && filters.push(getFilterMode());
-    getFilterName() && filters.push(getFilterName());
-    getFilterId() && filters.push(getFilterId());
-    map.setFilter("layer-stops", filters);
+    if (map.isStyleLoaded()) {
+      map.setFilter("layer-stops", null);
+      map.setLayoutProperty("layer-stops", "visibility", "visible");
+      filters = ["all"];
+      getFilterMode() && filters.push(getFilterMode());
+      getFilterName() && filters.push(getFilterName());
+      getFilterId() && filters.push(getFilterId());
+      map.setFilter("layer-stops", filters);
+    }
   }
 
   function getFilterId() {
@@ -37,11 +42,8 @@
 
   function getFilterMode() {
     if (modes && modes.length) {
-      if (modes.length > 1) {
-        return ["!=", "mode", "T"];
-      } else {
-        return ["==", "mode", modes[0]];
-      }
+      if (modes.length > 1) return ["!=", "mode", "T"];
+      else return ["==", "mode", modes[0]];
     } else {
       map.setLayoutProperty("layer-stops", "visibility", "none");
     }
@@ -49,7 +51,10 @@
 
   function getFilterName() {
     if (name && name.length > 0) {
-      return ["in", "alpha_fr", name];
+      const temp = names.filter(
+        (stop) => name === stop || lev(name, stop) <= stop.length / 2
+      );
+      return ["in", "alpha_fr", ...new Set(temp)];
     }
   }
 
@@ -84,8 +89,12 @@
         map.on("click", () => {
           map.getCanvas().style.cursor = "";
           // Remove the  lines filter and re add other stop markers
-          dispatch("select", { line: "null" });
-          id = "";
+          dispatch("select", {
+            line: undefined,
+            stop: undefined,
+            name: undefined,
+          });
+          id = undefined;
         });
 
         map.on("click", "layer-stops", (e) => {
