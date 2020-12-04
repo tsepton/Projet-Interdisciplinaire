@@ -21,7 +21,7 @@
 
   // Thanks to their very understandable API :
   // M is for metro, T for train & B for bus
-  let stopModes = ["M"];
+  let mode = "M";
 
   function handleSelection(e) {
     lineIdSelection = e.detail.line;
@@ -36,13 +36,13 @@
     <Lines filter={lineIdSelection} mode={stopModeSelection} />
     <Stops
       name={stopNameSelection}
-      modes={stopModes}
+      mode={mode}
       on:select={handleSelection} />
   </Map>
   <div>
     <Filters
       isOpen={!isOpen}
-      bind:modes={stopModes}
+      bind:mode={mode}
       bind:name={stopNameSelection} />
     <Information
       {isOpen}

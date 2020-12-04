@@ -1,20 +1,21 @@
 <script>
-  import Switch from "./Switch.svelte";
   import Container from "./Container.svelte";
+  import ModeSwitcher from "./ModeSwitcher.svelte";
 
   export let isOpen;
   export let name = "";
-  export let modes = [];
-
-  function handleMode(checked, ref) {
-    if (checked) modes = [...modes, ref];
-    else modes = [...modes.filter((elem) => elem !== ref)];
-  }
+  export let mode;
 </script>
+
+<style>
+  input {
+    width: 100%;
+  }
+</style>
 
 {#if isOpen}
   <Container>
-    <h3 slot="title">Apply some filters...</h3>
+    <h3 slot="title">Filtrer les recherches</h3>
     <div slot="body">
       <input
         id="input"
@@ -22,16 +23,7 @@
         name="name"
         placeholder="Chercher une station..."
         bind:value={name} />
-      <Switch
-        checked={modes.includes('M') ? true : false}
-        on:toggle={(e) => handleMode(e.detail.checked, 'M')}>
-        Metro
-      </Switch>
-      <Switch
-        checked={modes.includes('B') ? true : false}
-        on:toggle={(e) => handleMode(e.detail.checked, 'B')}>
-        Bus
-      </Switch>
+      <ModeSwitcher bind:mode />
     </div>
   </Container>
 {/if}

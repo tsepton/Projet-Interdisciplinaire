@@ -15,7 +15,6 @@
     // If the input value matches a layerID set
     // it's visibility to 'visible' or else hide it.
     const value = `${(filter ?? "").toString()}${(mode ?? "").toLowerCase()}`;
-    console.log(value);
     layerIDs.forEach((layerID) => {
       let visibility = "none";
       if (value !== "" && layerID.indexOf(value) > -1) visibility = "visible";

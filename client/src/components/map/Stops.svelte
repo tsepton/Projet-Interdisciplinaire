@@ -5,7 +5,7 @@
 
   export let name;
   export let id;
-  export let modes;
+  export let mode;
 
   let filters = [];
 
@@ -20,7 +20,7 @@
   // FIXME: Best hack ever
   setTimeout(handleFilters, 3500);
 
-  $: id, modes, name, handleFilters();
+  $: id, mode, name, handleFilters();
 
   function handleFilters() {
     if (map.isStyleLoaded()) {
@@ -41,9 +41,8 @@
   }
 
   function getFilterMode() {
-    if (modes && modes.length) {
-      if (modes.length > 1) return ["!=", "mode", "T"];
-      else return ["==", "mode", modes[0]];
+    if (mode) {
+      return ["==", "mode", mode];
     } else {
       map.setLayoutProperty("layer-stops", "visibility", "none");
     }
