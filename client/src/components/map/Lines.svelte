@@ -3,6 +3,7 @@
   import { key } from "../../lib/mapbox.js";
 
   export let filter;
+  export let mode;
 
   const { getMap, getLines } = getContext(key);
   const map = getMap();
@@ -13,7 +14,8 @@
   function filterLines(filter) {
     // If the input value matches a layerID set
     // it's visibility to 'visible' or else hide it.
-    const value = (filter ?? "").toString();
+    const value = `${(filter ?? "").toString()}${(mode ?? "").toLowerCase()}`;
+    console.log(value);
     layerIDs.forEach((layerID) => {
       let visibility = "none";
       if (value !== "" && layerID.indexOf(value) > -1) visibility = "visible";
@@ -33,7 +35,7 @@
       const ligneID = line.properties["LIGNE"];
       const ligneNumber = line.properties["LIGNE"];
       const ligneVariante = line.properties["VARIANTE"];
-      const layerID = `line-${ligneID}:${ligneVariante}-${ligneNumber}`;
+      const layerID = `${ligneID}`;
 
       if (!layerIDs.includes(layerID)) {
         map.addLayer({
