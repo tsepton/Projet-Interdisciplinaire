@@ -9,16 +9,17 @@
   const map = getMap();
   const lines = getLines();
 
-  let layerIDs = [];
+  let layerIds = [];
 
   function filterLines(filter) {
     // If the input value matches a layerID set
     // it's visibility to 'visible' or else hide it.
     const value = `${(filter ?? "").toString()}${(mode ?? "").toLowerCase()}`;
-    layerIDs.forEach((layerID) => {
+    console.log(value);
+    layerIds.forEach((layerId) => {
       let visibility = "none";
-      if (value !== "" && layerID.indexOf(value) > -1) visibility = "visible";
-      map.setLayoutProperty(layerID, "visibility", visibility);
+      if (value.length > 1 && layerId.indexOf(value) > -1) visibility = "visible";
+      map.setLayoutProperty(layerId, "visibility", visibility);
     });
   }
 
@@ -32,11 +33,9 @@
 
     lines.features.forEach((line) => {
       const ligneID = line.properties["LIGNE"];
-      const ligneNumber = line.properties["LIGNE"];
-      const ligneVariante = line.properties["VARIANTE"];
       const layerID = `${ligneID}`;
 
-      if (!layerIDs.includes(layerID)) {
+      if (!layerIds.includes(layerID)) {
         map.addLayer({
           id: layerID,
           type: "line",
@@ -52,7 +51,7 @@
           },
           filter: ["==", "LIGNE", ligneID],
         });
-        layerIDs = [...layerIDs, layerID];
+        layerIds = [...layerIds, layerID];
       }
     });
   });
