@@ -3,7 +3,7 @@ import ptvsd
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import gtfs, shapefiles
+from routers import gtfs, shapefiles, delay_prediction
 
 """
 Enable remote debugging
@@ -26,6 +26,7 @@ app.add_middleware(
 
 app.include_router(gtfs.router)
 app.include_router(shapefiles.router)
+app.include_router(delay_prediction.router)
 
 
 @app.get("/")
