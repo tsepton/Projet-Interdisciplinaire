@@ -17,9 +17,6 @@
     ({ _, properties }) => properties["alpha_fr"]
   );
 
-  // FIXME: Best hack ever
-  setTimeout(handleFilters, 3500);
-
   $: id, mode, name, handleFilters();
 
   function handleFilters() {
