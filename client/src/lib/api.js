@@ -19,4 +19,15 @@ async function vehiclePosition(lineIds) {
   else throw new Error(data?.error)
 }
 
-export { shapefiles, vehiclePosition }
+async function stopsByLine(lineIds) {
+  let headers = { "Content-Type": "application/json" };
+  headers["Authorization"] = `Bearer ${token}`;
+  const response = await fetch(`${stib}`
+    + "/NetworkDescription/1.0/PointByLine/"
+    + `${lineIds.join(',')}`, { headers, })
+  const data = await response.json()
+  if (response.ok) return data
+  else throw new Error(data?.error)
+}
+
+export { shapefiles, vehiclePosition, stopsByLine }

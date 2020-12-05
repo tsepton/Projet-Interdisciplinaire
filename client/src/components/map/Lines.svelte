@@ -18,7 +18,8 @@
     console.log(value);
     layerIds.forEach((layerId) => {
       let visibility = "none";
-      if (value.length > 1 && layerId.indexOf(value) > -1) visibility = "visible";
+      if (value.length > 1 && layerId.indexOf(value) > -1)
+        visibility = "visible";
       map.setLayoutProperty(layerId, "visibility", visibility);
     });
   }

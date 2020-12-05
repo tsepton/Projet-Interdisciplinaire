@@ -14,7 +14,7 @@
   const stops = getStops();
   const dispatch = createEventDispatcher();
   const names = stops.features.map(
-    ({ type, geometry, properties }) => properties["alpha_fr"]
+    ({ _, properties }) => properties["alpha_fr"]
   );
 
   // FIXME: Best hack ever
