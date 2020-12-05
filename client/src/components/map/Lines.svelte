@@ -14,8 +14,10 @@
   function filterLines(filter) {
     // If the input value matches a layerID set
     // it's visibility to 'visible' or else hide it.
-    const value = `${(filter ?? "").toString()}${(mode ?? "").toLowerCase()}`;
-    console.log(value);
+    // Check this wonderful piece of code, 
+    // so clean, so understandable
+    const prefix = filter ? "0".repeat(3 - `${filter}`.length) : ""
+    const value =  `${prefix}${filter ?? ""}${(mode ?? "").toLowerCase()}`;
     layerIds.forEach((layerId) => {
       let visibility = "none";
       if (value.length > 1 && layerId.indexOf(value) > -1)
