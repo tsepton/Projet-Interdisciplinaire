@@ -20,7 +20,7 @@
 
   // Thanks to their very understandable API :
   // M is for metro, T for train & B for bus
-  let mode = "M";
+  let mode = "";
 
   function handleSelection(e) {
     lineIdSelection = e.detail.line;
