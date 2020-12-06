@@ -56,7 +56,7 @@
 
   onMount(async () => {
     map.on("load", () => {
-      map.loadImage("/marker.32px.png", (error, image) => {
+      map.loadImage("/marker.png", (error, image) => {
         if (error) throw error;
         map.addImage("metro-marker", image);
 
