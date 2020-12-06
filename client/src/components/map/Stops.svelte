@@ -4,7 +4,7 @@
   import { lev } from "../../lib/levenstein.js";
 
   export let name;
-  export let id;
+  export let line;
   export let mode;
 
   let filters = [];
@@ -17,7 +17,7 @@
     ({ _, properties }) => properties["alpha_fr"]
   );
 
-  $: id, mode, name, handleFilters();
+  $: mode, line, name, handleFilters();
 
   function handleFilters() {
     if (map.isStyleLoaded()) {
@@ -25,15 +25,9 @@
       map.setLayoutProperty("layer-stops", "visibility", "visible");
       filters = ["all"];
       getFilterMode() && filters.push(getFilterMode());
-      getFilterName() && filters.push(getFilterName());
-      getFilterId() && filters.push(getFilterId());
+      if (line) getFilterLine() && filters.push(getFilterLine());
+      else getFilterName() && filters.push(getFilterName());
       map.setFilter("layer-stops", filters);
-    }
-  }
-
-  function getFilterId() {
-    if (id && id.length > 0) {
-      return ["==", "stop_id", id];
     }
   }
 
@@ -42,6 +36,12 @@
       return ["==", "mode", mode];
     } else {
       map.setLayoutProperty("layer-stops", "visibility", "none");
+    }
+  }
+
+  function getFilterLine() {
+    if (line) {
+      return ["==", "numero_lig", line];
     }
   }
 
@@ -91,7 +91,7 @@
             name: undefined,
           });
           name = undefined;
-          id = undefined;
+          line = undefined;
         });
 
         map.on("click", "layer-stops", (e) => {
@@ -102,7 +102,8 @@
             stop: e.features[0].properties["stop_id"],
             name: e.features[0].properties["alpha_fr"],
           });
-          id = e.features[0].properties["stop_id"];
+          name = e.features[0].properties["alpha_fr"];
+          line = e.features[0].properties["numero_lig"];
         });
       });
     });
