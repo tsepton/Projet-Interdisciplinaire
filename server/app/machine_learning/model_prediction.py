@@ -11,20 +11,20 @@ def predict(stop, line, direction):
 
     time = now.strftime("%H:%M:%S").split(":")
     time = (int(time[0])+1)*3600 + int(time[1])*60 + int(time[2])
-    if stop == "6608G":
+    if stop in ["6608G", "6650G"]:
         stop = 0.0
     elif stop == "0089":
         stop = 1.0
     else:
         return
 
-    if line == "51.0":
+    if line == "51":
         line = 2.0
-    elif line == "39.0":
+    elif line == "39":
         line = 0.0
-    elif line == "44.0":
+    elif line == "44":
         line = 1.0
-    elif line == "82.0":
+    elif line == "82":
         line = 3.0
     else:
         return

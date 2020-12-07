@@ -1,6 +1,6 @@
 <script>
   import Container from "./Container.svelte";
-  import { stopsByLine } from "../../lib/api.js";
+  import { stopsByLine, delay } from "../../lib/api.js";
   import Destination from "./Destination.svelte";
 
   export let isOpen = false;
@@ -29,7 +29,13 @@
         Loading...
       {:then { lines }}
         {#each lines as line, index}
-          <Destination {line} />
+          {#await delay(lineId.toString(), stopId.toString(), line.direction)}
+            Loading...
+          {:then delay}
+            <Destination {line} {delay} />
+          {:catch error}
+            <Destination {line} />
+          {/await}
           {#if index < 1}
             <hr />
           {/if}
