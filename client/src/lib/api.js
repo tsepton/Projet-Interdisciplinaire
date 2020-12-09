@@ -1,6 +1,6 @@
 const host = 'http://localhost:8080'
 const stib = 'https://opendata-api.stib-mivb.be'
-const token = '1b29a0b34badf9f5aeb006597fc7a76e'
+const token = 'd4cc89a5230b70a316b6784629a9766d'
 
 export async function shapefiles(file) {
   const response = await fetch(`${host}/shapefiles/${file}/`)
