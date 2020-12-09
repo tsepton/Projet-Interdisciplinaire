@@ -5,6 +5,8 @@
   import Lines from "../components/map/Lines.svelte";
   import Filters from "../components/filters/Filters.svelte";
   import Information from "../components/filters/Information.svelte";
+  import Scale from "../components/map/Scale.svelte";
+  import Navigation from "../components/map/Navigation.svelte";
 
   // TODO : Refactor ninja code, j'ai pas le temps maintenant gros
   // Vu la deadline, je l'aurai jamais
@@ -31,6 +33,8 @@
 
 <Context>
   <Map latitude={50.842912} longitude={4.377492} zoom={11}>
+    <Scale />
+    <Navigation />
     <Lines filter={lineIdSelection} {mode} />
     <Stops name={stopNameSelection} {mode} on:select={handleSelection} />
   </Map>
