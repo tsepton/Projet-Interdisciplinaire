@@ -12,13 +12,13 @@
     position: absolute;
     z-index: 100 !important;
     max-height: 100%;
-    margin: 0;
+    margin: 15px;
 
     background-color: #fff;
     color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 5px 2px var(--secondary);
     border-radius: 3px;
-    padding: 5px;
+    padding: 20px;
   }
   /* Small screens */
   @media (max-width: 900px) {
@@ -43,6 +43,7 @@
   @media (min-width: 900px) {
     .container {
       width: 25%;
+      min-width: max-content;
       top: 10px;
       right: 10px;
     }

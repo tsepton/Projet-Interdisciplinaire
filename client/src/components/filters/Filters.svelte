@@ -11,11 +11,30 @@
   .flex {
     display: flex;
     justify-content: space-around;
-    height: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    .flex {
+      height: max-content;
+      flex-direction: column;
+      padding: 10px;
+    }
+    .spacer {
+      display: none;
+    }
+  }
+  @media (min-width: 900px) {
+    .flex {
+      height: 2rem;
+      flex-direction: row;
+    }
+    .spacer {
+      width: 1rem;
+    }
   }
 
   input {
-    width: 45%;
+    width: 100%;
     height: 100%;
     border-radius: 16px;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
@@ -32,6 +51,7 @@
         name="name"
         placeholder="Chercher une station..."
         bind:value={name} />
+      <div class="spacer" />
       <ModeSwitcher bind:mode />
     </div>
   </Container>

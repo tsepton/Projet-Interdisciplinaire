@@ -8,12 +8,14 @@
 
 <style>
   .container {
-    width: 45%;
+    width: 100%;
     text-align: center;
     border-radius: 16px;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-around;
+    padding-top: 2.8px;
+    padding-bottom: 2.8px;
   }
 
   label {
@@ -22,8 +24,8 @@
     color: rgba(0, 0, 0, 0.5);
     text-align: center;
     border-radius: 16px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   input {
