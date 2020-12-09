@@ -104,6 +104,8 @@
           });
           name = e.features[0].properties["alpha_fr"];
           line = e.features[0].properties["numero_lig"];
+          // Focus the marker on the center of the screen
+          map.flyTo({ center: e.features[0].geometry.coordinates });
         });
       });
     });
