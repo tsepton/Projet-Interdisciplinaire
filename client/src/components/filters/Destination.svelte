@@ -20,14 +20,8 @@
 
     let minute = Math.floor(decpart * 60) + "";
 
-    // Add padding if need
-    if (minute.length < 2) minute = "0" + minute;
-
-    // Add Sign in final result
-    sign = sign == 1 ? "" : "-";
-
     // Concate hours and minutes
-    const time = sign + hour + ":" + minute;
+    const time = hour + "m" + minute + "s";
 
     return time;
   }
@@ -35,9 +29,15 @@
 
 <div>Destination : <b>{line.destination.fr}</b></div>
 <div>
-  Ligne en direction de la {#if line.direction.toLowerCase() === 'city'}ville.{:else}banlieue.{/if}
+  Ligne en direction de la
+  {#if line.direction.toLowerCase() === 'city'}ville.{:else}banlieue.{/if}
 </div>
 {#if delay}
-  Le retard prédit du prochain train passant par cette station dans cette
-  direction est de {delayFormatted}m.
+  {#if delay <= 0}
+    Le prochain train passant par cette arrêt possède un retard de
+    {delayFormatted}.
+  {:else}
+    Le prochain train passant par cette arrêt possède une avance de
+    {delayFormatted}.
+  {/if}
 {/if}

@@ -31,7 +31,6 @@ export async function stopsByLine(lineIds) {
 }
 
 export async function delay(line, stop, direction) {
-  console.log({ line, stop, direction })
   const response = await fetch(`${host}/delay`, {
     method: 'POST',
     headers: {
